@@ -1,7 +1,6 @@
 # Serenity — 紫苏叶投资方法论（Chokepoint Theory）
 
 [![Version](https://img.shields.io/badge/version-3.1.0-blue)](./SKILL.md)
-[![WorkBuddy](https://img.shields.io/badge/WorkBuddy-Skill-green)](https://workbuddy.ai)
 
 基于匿名独立研究者 **Serenity (@aleabitoreddit)** 的公开推文方法论，提炼的 AI 驱动供应链瓶颈分析 Skill。
 
@@ -33,7 +32,7 @@
 
 ## 使用方式
 
-在 WorkBuddy 中将此 SKILL.md 放入 `~/.workbuddy/skills/serenity/` 目录。
+基于开放的 Agent Skills 协议，可在 Claude Code、Codex、Cursor、OpenClaw、Hermes Agent、CodeBuddy、Workbuddy、Gemini CLI、OpenCode 等 50+ 兼容 runtime 中运行。
 
 触发词：紫苏叶、瓶颈分析、拆产业链、供应链卡点、serenity 打法、chokepoint、卡脖子、逆向工程。
 
