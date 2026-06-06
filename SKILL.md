@@ -1,292 +1,306 @@
 ---
 name: serenity
-description: "Serenity investment research method, also called 紫苏叶 theory or Chokepoint Theory. Use when the user asks to analyze an industry chain, find overlooked upstream bottleneck suppliers, identify hidden champions, validate a stock thesis, compare chokepoint players, or run supply-chain card-point analysis for AI semiconductors, optical communications, robotics, new energy, rare earth materials, precision manufacturing, or other long industrial chains. Trigger phrases include 紫苏叶, serenity打法, 瓶颈分析, 供应链卡点, 拆产业链, 隐形冠军, 上游垄断, 不可替代性, chokepoint, reverse engineering, 卡脖子, and physical bottleneck."
-version: "3.2.0"
+description: "Serenity投资方法论——紫苏叶理论/Chokepoint Theory。从顶层需求逐层逆向拆解产业链，寻找第3-7层被市场忽视的关键物理瓶颈（只有1-2家供应商、不可替代、市值严重低估）。触发词：紫苏叶、瓶颈分析、拆产业链、供应链卡点、serenity打法、找隐性冠军、上游垄断、不可替代性分析、chokepoint、逆向工程、卡脖子。"
+version: "4.0.0"
 agent_created: true
 ---
 
-# Serenity: Chokepoint research method
+# Serenity — 紫苏叶·瓶颈猎手方法论
 
-Serenity is a research workflow for finding the overlooked physical bottleneck in a long industrial chain. The target is usually not the visible first-layer winner, but a smaller upstream supplier that is hard to replace, capacity constrained, and mispriced relative to the value of the link it controls.
+**执行指令**：收到分析请求后，按 Phase 1→12 顺序逐项产出。快速分析（单标的）用模板 A，完整报告（行业/多标的）用模板 B。每个关键数据点必须标注来源，无法获取标注"待补充"。
 
-Use this skill for research, not for direct investment advice. Any price target, stop loss, catalyst scenario, or ranking is a hypothesis and must include assumptions, evidence quality, and risk conditions.
+> **终极问题："在这个系统里，谁是那个沉默的、不可替代的物理开关？"**
 
-## When to use
+永远不追金枪鱼大腹（英伟达、微软、OpenAI——已被充分定价），永远只找紫苏叶——市值小、名字陌生、但整条产业链缺了它就停摆的上游瓶颈。
 
-Use this skill when the user asks for:
+**本方法论不构成投资建议。所有目标价、止损位、催化剂情景均为研究假设，必须附带核心假设、数据来源和置信度标注。**
 
-- "紫苏叶" or Serenity-style analysis.
-- Chokepoint, bottleneck, card-point, or hidden champion analysis.
-- Reverse engineering a supply chain from a final product or theme.
-- Validating whether a stock is truly irreplaceable upstream.
-- Comparing global suppliers in a technical manufacturing chain.
-- Finding under-covered A-share, Hong Kong, US, or global suppliers in AI, semiconductors, CPO, robotics, batteries, rare earths, industrial software tied to hardware, precision equipment, sensors, or materials.
+---
 
-Do not use this skill as the main framework for consumer brands, pure financial services, content platforms, generic internet platforms, or themes without a long physical supply chain.
+## 一、适用与不适用
 
-## Data rules
+**适用**：AI 半导体、光通信、新能源、机器人、稀土材料、精密制造、传感器等有长产业链的技术制造行业。
 
-1. Browse or use current financial-data skills for market, financial, customer, and industry facts. For installed local skills, prefer `neodata-financial-search` for broad market and financial queries, and `westock-data` for stock, ETF, K-line, financial statement, sector, news, announcement, research report, and fund-flow detail.
-2. Do not answer time-sensitive financial facts from memory. Verify current market data, filings, prices, estimates, and news.
-3. Cite the source for every material data point. If a fact cannot be verified, mark it as `待补充` or `low confidence`.
-4. Do not mix data sources silently. If different sources disagree, show the conflict and prefer filings, exchange disclosures, company reports, regulator data, or primary technical sources over summaries.
-5. Separate fact, inference, and speculation. Label each major conclusion with confidence: high, medium, or low.
+**不适用**：消费品牌、金融服务、内容平台、互联网平台——产业链太短，瓶颈概念不成立。
 
-Useful source types:
+**不替代**：财务估值建模（DCF/Comps）仍需单独做，本方法论是选股定位工具，不是定价工具。
 
-| Need | Preferred sources |
+---
+
+## 二、数据规则
+
+1. 优先使用金融数据技能获取行情、财报、行业、新闻和研究报告数据
+2. 不凭记忆回答时效性金融事实，当前行情、财报、预测、新闻必须核实
+3. 每个关键数据点标注来源。无法验证的标注"待补充"或"低置信度"
+4. 不同数据源如有冲突，标注差异并以公告/财报/监管文件为准
+5. 区分事实、推断和推测，每个主要结论标注置信度：高/中/低
+
+| 数据类型 | 首选来源 |
 | --- | --- |
-| Financials | annual/interim reports, prospectuses, exchange filings, audited statements |
-| Customers | annual reports, prospectuses, supplier lists, procurement disclosures, verified conference material |
-| Capacity | company IR, environmental impact reports, permitting documents, plant announcements, customs data |
-| Technology | patents, standards documents, academic papers, product datasheets, certification records |
-| Market position | filings, industry reports, customer qualification lists, import/export data |
-| Current price and events | exchange data, company announcements, trusted financial data tools |
+| 财务数据 | 年报/中报、招股书、交易所公告、审计报告 |
+| 客户信息 | 年报、招股书、供应商名录、采购公告、会议材料 |
+| 产能信息 | 公司 IR、环评报告、产能公告、海关数据 |
+| 技术壁垒 | 专利数据库、行业标准、学术论文、产品规格书、认证记录 |
+| 市场地位 | 公告、行业报告、客户名录、进出口数据 |
+| 实时行情与事件 | 交易所数据、公司公告、金融数据工具 |
 
-## Core question
+---
 
-Ask throughout the analysis:
+## 三、执行流程：12 步瓶颈狩猎法
 
-> In this system, what is the quiet physical switch that everyone needs and few can replace?
+### Phase 1：绘制产业链地图（5-7 层）
 
-Avoid over-focusing on the first-layer giant. The method is designed to find the upstream dependency that is less visible but structurally powerful.
+从终端需求逆向拆解，逐层追问"这一层要正常工作，下一层什么东西是别人替代不了的？"
 
-## Workflow
-
-Run the phases in order. For a quick answer, compress the evidence, but do not skip the source, risk, and confidence checks.
-
-### Phase 1: Map the chain
-
-Build a 5-7 layer chain from the end demand backward:
-
-```text
-Layer 1: end product/service -> representative leaders
-Layer 2: core system/module -> direct suppliers
-Layer 3: critical subcomponent/material -> candidate bottlenecks
-Layer 4: special material/equipment/process -> narrower candidates
-Layer 5: base input, unique equipment, process know-how, or certified supplier
-Layer 6-7: only if the real dependency sits deeper
+```
+第1层：终端产品/服务 — 代表龙头：[龙头A、龙头B]
+  ↓ 需要什么？
+第2层：核心系统/模组 — 直接供应商：[?]
+  ↓ 还需要什么？
+第3层：关键子组件/材料 — 候选瓶颈环节 → [?]
+  ↓ 还需要什么？
+第4层：特种材料/设备/工艺 — 更窄的候选池 → [?]
+  ↓ 还有吗？
+第5层：最底层原料/独家设备/工艺诀窍 → [?]
+第6-7层：仅在真正的依赖点埋得更深时拆到这里
 ```
 
-At each layer ask: What must this layer have, and what is difficult to replace?
+**原则**：大部分人看到第二层就停了，你必须拆到第五层以下。越深层，定价漏洞越大。
 
-### Phase 2: Count real players
+### Phase 2：数清全球真实玩家
 
-Count global commercially relevant suppliers, not just companies that claim they can make the product.
+数的是"真正有商业意义的供应商"，不是声称能做但没量产的。
 
-| Supplier count | Interpretation | Action |
+| 供应商数量 | 判定 | 操作 |
 | --- | --- | --- |
-| 4+ credible suppliers | likely competitive | usually pass unless qualification barriers are extreme |
-| 3 suppliers | possible oligopoly | continue only if qualification, capacity, or patent barriers are strong |
-| 2 suppliers | strong chokepoint candidate | verify deeply |
-| 1 supplier or de facto monopoly | absolute chokepoint candidate | make it the focus |
+| 4 家以上 | 竞争充分 | 通常跳过，除非认证壁垒极高 |
+| 3 家 | 可能寡头 | 只有认证/产能/专利壁垒足够强才继续 |
+| 2 家 | 强瓶颈候选 | 深度验证 |
+| 1 家或实质垄断 | 绝对瓶颈 | 这是重点标的 |
 
-Clarify what qualifies as a "real player": production scale, customer qualification, product performance, yield, certification, delivery reliability, and ability to serve the target market.
+"真实玩家"的标准：量产规模、客户认证、成品率、产品性能、交期、服务目标市场的能力。
 
-### Phase 3: Verify five dimensions
+### Phase 3：五维深度验证
 
-For each candidate, produce a yes/no/unclear conclusion:
+对每个候选标的逐项给出"是/否/不明确"结论：
 
-1. Irreplaceability: Can downstream customers switch? How long is qualification? Are there safety, automotive, aerospace, military, or reliability certifications?
-2. Capacity ceiling: Current capacity, utilization, expansion cycle, capex bottlenecks, upstream raw-material limits.
-3. Customer structure: Top five customer concentration, contract duration, single-customer risk, customer quality.
-4. Technical moat: Key patents, process know-how, yield, certification, data, standards, and route-change risk.
-5. Valuation mismatch: market cap and enterprise value versus the value and scarcity of the controlled link.
+1. **不可替代性**：下游能不能换供应商？认证周期多长？是否有军规/车规/航空/医疗等强制认证？（2-5 年认证周期 = 天然护城河）
+2. **产能上限**：现有产能、利用率、扩产周期、capex 瓶颈、上游原料有无限制？
+3. **客户结构**：前五大客户集中度、合同期限、单一客户依赖风险、客户质量
+4. **技术护城河**：核心专利、工艺诀窍、成品率、认证、标准制定权、技术路线被颠覆的风险
+5. **估值错配**：当前市值/企业价值 vs 所控制环节的价值和稀缺程度
 
-Use financial indicators as verification, not as the whole thesis. Do not say "do not look at PE/ROE"; instead, do not stop at PE/ROE.
+财务指标（PE/ROE）是验证工具，不是全部逻辑。不要只看 PE/ROE，但也不要完全不看。
 
-### Phase 4: Run devil's advocate
+### Phase 4：对抗性验证（魔鬼代言人）🔑
 
-Attack the thesis before presenting it:
+在发布结论之前，先攻击自己的逻辑：
 
-```text
-Assume you are a harsh short seller. Attack every link in this chokepoint thesis. Look for substitute technologies, customer bargaining power, a second supplier entering, capacity overbuild, demand disappointment, patent weakness, source errors, valuation traps, liquidity risk, and timing risk.
-```
+> "假设你是一个极度苛刻的空头分析师，请逐一攻击以上分析中的每一个逻辑环节。找出替代技术威胁、客户议价能力、第二供应商进入可能、产能过剩风险、需求证伪、专利漏洞、数据源错误、估值陷阱、流动性风险和时机风险。"
 
-Include the 3-5 strongest attacks and whether they weaken, break, or merely qualify the thesis.
+列出 3-5 个最有力的攻击点，并说明这些攻击是"削弱"、"推翻"还是仅"限制"你的论点。
 
-### Phase 5: Compare global competitors
+这是 Serenity 方法论中最独特的步骤，也是最容易被跳过但最不能跳过的一步。
 
-Cover at least three international competitors when available.
+### Phase 5：全球竞争对手深度对比
 
-| Dimension | Target | Competitor 1 | Competitor 2 | Competitor 3 |
+至少覆盖 3 家国际竞对：
+
+| 维度 | 标的 | 竞对1(国家) | 竞对2(国家) | 竞对3(国家) |
 | --- | --- | --- | --- | --- |
-| Country / production base | | | | |
-| Core product metric | | | | |
-| Technology generation | | | | |
-| Major customers | | | | |
-| Capacity / expansion | | | | |
-| Gross margin / revenue scale | | | | |
-| Patents / certifications | | | | |
+| 生产地 | | | | |
+| 核心技术指标 | | | | |
+| 技术代际 | | | | |
+| 主要客户 | | | | |
+| 产能/扩产计划 | | | | |
+| 毛利率/营收规模 | | | | |
+| 专利/认证 | | | | |
 
-Answer:
+**必须回答的三个问题**：
+1. 标的与全球第一的技术差距是几年？
+2. 护城河是"绝对壁垒"（军工资质、独家认证、物理垄断）还是"阶段性先发"（巨头 6 个月可复制）？
+3. 海外或国内竞争者侵蚀护城河的概率有多大？
 
-- How many years behind or ahead is the target versus the global leader?
-- Is the moat absolute, regulatory, qualification-based, capacity-based, or merely temporary?
-- How likely is foreign or domestic competition to erode the moat?
+### Phase 6：判断资金周期阶段
 
-### Phase 6: Position the capital-cycle stage
+| 阶段 | 含义 | 证据来源 |
+| --- | --- | --- |
+| 阶段一：无人问津 | 研究报告少、机构持仓低、事实尚未被连接 | 研报数量、持仓数据、换手率 |
+| 阶段二：早期发现 | 专业投资者开始关注、流动性改善、仍被低估 | 龙虎榜、专业论坛讨论、大股东变化 |
+| 阶段三：主流确认 | 卖方和机构验证、估值开始反映增长 | 评级上调、机构增持、业绩兑现 |
+| 阶段四：拥挤共识 | 普遍叙事、高预期、不对称上涨空间消退 | 高换手率、过度覆盖、预期透支 |
 
-Classify the theme or target:
+大部分收益是在"官方确认"之前赚到的——等所有人都确认了，不对称空间已经被消化。
 
-| Stage | Meaning |
+### Phase 7：另类数据挖掘
+
+不看（已被充分定价的）：PE、ROE、财报摘要、北向资金、常见研报
+
+| 数据源 | 验证什么 |
 | --- | --- |
-| Stage 1: ignored | few reports, little institutional ownership, facts not yet connected |
-| Stage 2: early discovery | specialized investors notice, liquidity improves, still under-modeled |
-| Stage 3: confirmation | sell-side and institutions validate, valuation begins to price growth |
-| Stage 4: crowded | common narrative, high expectations, asymmetric upside fades |
+| 专利引用网络 | 技术壁垒厚度和路线选择 |
+| 供应商/客户名录 | 产业链位置确认 |
+| 海关进出口数据 | 出货量和市场准入 |
+| 招聘和 capex 动态 | 扩产压力和方向 |
+| 环评文件 | 工厂产能和时间表 |
+| 标准和认证 | 资质壁垒 |
+| 行业会议 PPT 和规格书 | 生态角色和产品指标 |
+| GitHub/开发者社区 | 仅在标的涉及软件或开发者生态时作为需求前瞻信号 |
 
-State the evidence for the stage, such as report count, holdings, liquidity, earnings revisions, conference mentions, or announcement frequency.
+### Phase 8：判定错误定价类型
 
-### Phase 7: Use alternative data
+| 类型 | 含义 | 案例 |
+| --- | --- | --- |
+| 传统瓶颈 | 稀缺的物理供应商控制着必要环节 | AXTI（InP 衬底双寡头） |
+| 相对价值错判 | 市场把公司归错类别 | RPI 被当教育硬件，实为 AI Agent 载体 |
+| 代码/数据混淆 | ticker 混淆导致筛选和估值错误 | VLN 与 VLO 混淆 |
+| 机械性错位 | 非基本面抛售造成临时折价 | NBIS 可转债转股引发算法抛售 |
+| 时机期权 | 技术尚未确认，但供应商有不对称选择权 | CPO/硅光子早期阶段 |
 
-Look beyond standard financial summaries:
+### Phase 9：物理-地缘坐标标注
 
-| Data | What it verifies |
-| --- | --- |
-| Patent citation network | technical moat and route choice |
-| Supplier/customer lists | position in the chain |
-| customs data | shipment trend and market access |
-| hiring and capex | expansion pressure |
-| environmental filings | plant capacity and timeline |
-| standards and certification | qualification barriers |
-| conference decks and datasheets | ecosystem role and product metrics |
-| GitHub / developer signals | demand signal only when the product has a software or developer ecosystem |
+每个标的从四个维度标注：
 
-### Phase 8: Classify the mispricing
+- **生产地点**和关键工厂依赖
+- **上游原料或设备依赖**
+- **出口管制、制裁、关税、地缘风险**
+- **客户地理分布**和市场准入限制
+- **下一个关键里程碑**：财报、产品发布、监管审批、产能上线
 
-Choose one primary type:
+### Phase 10：A 股/港股六维测试
 
-| Type | Meaning |
-| --- | --- |
-| Traditional chokepoint | scarce physical supplier controls a necessary link |
-| Relative-value mismatch | market classifies the company incorrectly |
-| Code or data confusion | ticker/data ambiguity creates wrong screening or valuation |
-| Mechanical dislocation | non-fundamental selling creates a temporary discount |
-| Timing option | technology is not confirmed yet, but the supplier has asymmetric optionality |
+| # | 测试维度 | 具体指标 | A 股门槛 | 港股门槛 |
+| --- | --- | --- | --- | --- |
+| T1 | 盈利质量 | 扣非净利润 / 归母净利润 | >80% | >90% |
+| T2 | 现金转化 | 经营现金流 / 净利润 | >0.8x | >1.0x |
+| T3 | 真实增长 | 最新营收增速或 2 年 CAGR | >25% | >20% |
+| T4 | 估值消化力 | PEG 或 EV/EBITDA vs 增速 | <1.0 | <0.8 |
+| T5 | 竞争地位 | 国内/全球排名 | 国内前三或全球前五 | 全球前三 |
+| T6 | 绝对规模 | 扣非净利润或分部利润 | >¥1 亿 | >¥2 亿 |
 
-### Phase 9: Mark physical and geopolitical coordinates
+**A 股与港股的估值差异不是"泡沫"，是市场结构的必然结果**：
+- A 股"散户市/封闭池"：PE 天然比港股高 30-50%，不可用美光 10x PE 或恒科 20x PE 来衡量 A 股科技标的
+- 港股"机构市/连通器"：PE/FCF 估值锚，外资主导
+- 正确做法：A 股对标 A 股内部同类（中际旭创、新易盛），港股对标港股同类（腾讯、美团）
 
-For each target, list:
+### Phase 11：三类情景框架
 
-- production location and key plant dependency
-- upstream raw material or equipment dependency
-- export controls, sanctions, tariff, or geopolitical risk
-- customer geography and market-access limits
-- next financial, product, regulatory, or capacity milestone
+如果用户需要投资判断参考，提供三种研究情景，不构成买卖建议：
 
-### Phase 10: Run A-share / Hong Kong six tests when applicable
-
-Define the metrics explicitly:
-
-| Test | Metric | A-share guide | Hong Kong guide |
-| --- | --- | --- | --- |
-| T1 earnings quality | recurring net profit / reported net profit | >80% | >90% |
-| T2 cash conversion | operating cash flow / net profit | >0.8x | >1.0x |
-| T3 real growth | latest revenue growth or 2-year CAGR | >25% | >20% |
-| T4 valuation digestibility | PEG or EV/EBITDA versus growth | <1.0 PEG guide | <0.8 PEG guide |
-| T5 competitive position | domestic and global rank | domestic top 3 or global top 5 | global top 3 preferred |
-| T6 absolute scale | recurring net profit or segment operating profit | >RMB 100m | >RMB 200m |
-
-If T6 uses revenue, backlog, or market cap instead of recurring profit, say so explicitly and explain why.
-
-### Phase 11: Produce scenario frameworks
-
-If the user asks for investment framing, provide three research scenarios. Avoid presenting them as instructions to buy or sell.
-
-```text
-Momentum scenario: target range X, key assumption Y, invalidation Z
-Value scenario: fair value X, required margin of safety Y%, why the market may not offer it
-Catalyst scenario: if event X occurs, expected reaction Y, risk/reward Z:1
+```
+🅰️ 动量情景：目标区间 X，核心假设 Y，失效条件 Z
+🅱️ 价值情景：合理估值 X，所需安全边际 Y%，为什么市场可能不给你这个价格
+🅲️ 催化剂情景：若事件 X 发生，预期反应 Y，风险收益比 Z:1
 ```
 
-Every target price must include: valuation method, key assumptions, data date, and confidence level.
+每个目标价必须附带：估值方法、核心假设、数据日期、置信度。
 
-### Phase 12: Risk matrix and exit conditions
+### Phase 12：风险矩阵与退出条件
 
-Always include a risk matrix:
+| # | 风险 | 监测指标 | 预警阈值 | 退出/逻辑证伪条件 |
+| --- | --- | --- | --- | --- |
+| 1 | 技术路线变化 | 标准、客户设计选型、专利动态 | | |
+| 2 | 第二供应商进入 | 客户认证、产能公告 | | |
+| 3 | 需求不及预期 | 订单、积压、利用率、客户 capex | | |
+| 4 | 产能过剩 | 行业 capex、新批文 | | |
+| 5 | 流动性/拥挤 | 换手率、持仓、融资压力 | | |
+| 6 | 估值透支 | 隐含预期 vs 可实现增速 | | |
 
-| Risk | Monitoring indicator | Warning threshold | Exit / thesis-break condition |
-| --- | --- | --- | --- |
-| technology route changes | standards, customer design wins, patents | | |
-| second supplier enters | customer qualification, capacity announcement | | |
-| demand misses | orders, backlog, utilization, customer capex | | |
-| capacity overbuild | industry capex, new permits | | |
-| liquidity / crowding | turnover, ownership, financing pressure | | |
-| valuation overshoot | implied expectations vs feasible growth | | |
+---
 
-## Output formats
+## 四、输出模板
 
-### Quick analysis
-
-Use for a single stock or a narrow theme:
+### 模板 A：快速分析（单标的/窄主题）
 
 ```markdown
-## [Target/theme] Serenity quick view
+## [标的/主题] 紫苏叶·瓶颈快速分析
 
-### Verdict
-- Chokepoint status:
-- Confidence:
-- Main reason:
-- Main thesis-break risk:
+### 判定
+- 瓶颈等级：[绝对瓶颈 / 寡头 / 不构成瓶颈]
+- 置信度：[高/中/低]
+- 核心逻辑：[一句话]
+- 最大风险：[一个最可能证伪的因素]
 
-### Chain map
-[5-7 layers]
-
-### Bottleneck evidence
-| Dimension | Evidence | Source | Confidence |
-| --- | --- | --- | --- |
-
-### Competitor count
-[real supplier count and why]
-
-### Devil's advocate
-[3-5 attacks and response]
-
-### Scenario framework
-[momentum / value / catalyst, if requested]
-
-### Risk matrix
-[monitoring indicators and exit conditions]
+### 产业链位置（5-7 层链条）
+### 瓶颈证据（五维验证，逐项标注来源和置信度）
+### 全球玩家统计（几家、分别是谁）
+### 魔鬼代言人攻击（3-5 个最有力的反驳）
+### 情景框架（动量/价值/催化剂，如需要）
+### 风险矩阵（监测指标 + 退出条件）
 ```
 
-### Full report
-
-Use for an industry or multi-target request:
+### 模板 B：完整报告（行业/多标的）
 
 ```markdown
-## [Industry/theme] Serenity full report
+## [行业/主题] 紫苏叶·瓶颈完整报告
 
-### Executive view
-### 5-7 layer chain map
-### Candidate chokepoint list
-### Global competitor comparison
-### Phase 3 five-dimension verification
-### Capital-cycle stage
-### Alternative-data evidence
-### A-share / Hong Kong six tests, if applicable
-### Ranking and confidence
-### Devil's advocate
-### Scenario framework, if requested
-### Risk matrix and thesis-break conditions
-### Source notes and unresolved items
+### 核心观点
+### 5-7 层产业链全景图
+### 瓶颈候选标的池
+### 全球竞争对手对比
+### 五维验证详情
+### 资金周期阶段判断
+### 另类数据证据
+### A 股/港股六维测试（如适用）
+### 排名与置信度
+### 魔鬼代言人攻击与回应
+### 情景框架（如需要）
+### 风险矩阵与证伪条件
+### 数据源注释与待核实事项
 ```
 
-## Self-check before final answer
+---
 
-- Did I identify the physical dependency, not just the visible leader?
-- Did I map at least five layers unless the chain is genuinely shorter?
-- Did I count real global suppliers and define "real supplier"?
-- Did I cite sources for material claims?
-- Did I separate fact, inference, and speculation?
-- Did I include the strongest opposing arguments?
-- Did I include risk and exit conditions?
-- For A-share/Hong Kong targets, did I define and run T1-T6 or explain why data is unavailable?
-- Did I avoid presenting research scenarios as personalized investment advice?
+## 五、输出前自检（11 条）
 
-## Boundaries
+1. 找到的是真正的物理依赖，不是可见的龙头？
+2. 产业链至少拆到第五层（除非产业链本身确实更短）？
+3. 数清了全球真实供应商，并定义了"真实"的标准？
+4. 关键数据点标注了来源？
+5. 区分了事实、推断和推测？
+6. 包含了最强的反对方论点？
+7. 包含了风险和退出条件？
+8. A 股/港股标的是否跑了 T1-T6 六维测试？
+9. 情景框架是否标注了置信度和假设前提？
+10. 是否避免了将研究假设包装成个人投资建议？
+11. 魔鬼代言人验证是否已执行？
 
-- This skill does not replace valuation modeling, accounting due diligence, or portfolio risk management.
-- This skill is not suitable for direct trading signals without independent verification.
-- If the task requires current market data, browse or use financial data tools before concluding.
-- If data quality is weak, say so plainly and reduce confidence instead of forcing a conclusion.
+---
+
+## 六、验证案例（6 个，全部美股）
+
+| 标的 | 行业 | 瓶颈类型 | 结果 |
+| --- | --- | --- | --- |
+| AXTI | InP 衬底（双寡头） | 传统瓶颈 | $12→$70+（~6x），提前一年预判 |
+| SIVE | CPO 高功率 CW 激光器 | 传统瓶颈 | $1.3 亿→$23 亿（~18x） |
+| Soitec | SOI 衬底全球垄断 | 传统瓶颈 | 一条推文涨 16% |
+| RPI | 树莓派微型电脑 | 相对价值错判 | 推文后 2 天涨 90%，财报超预期 |
+| VLN | Valens 半导体 | 代码/数据混淆 | 量化混淆致价值错估 |
+| NBIS | AI 云服务 | 机械性错位 | 可转债抛售致 $95 非理性低价 |
+
+> ⚠️ 待补充 A 股/港股完整验证案例。
+
+---
+
+## 七、失败案例与本方法论边界
+
+| 标的 | 跌幅 | 教训 |
+| --- | --- | --- |
+| UPWK | -35% | 不在核心瓶颈赛道 |
+| HIMS | -50% | 竞争格局判断出错 |
+| CRCL | -45% | 时机过早，需求未到 |
+| TOWA | -20%+（单日） | 财报噪音 vs 长期逻辑，需要判断力 |
+
+### 四大结构性风险
+
+1. **技术路径颠覆**：CPO 如遇死结转薄膜铜缆，整条硅光链崩塌
+2. **大客户扶持第二供应商**：英伟达等巨头可以主动培养竞争者
+3. **流动性枯竭**：微型股日均量低，协同退出时踩踏剧烈
+4. **核心假设证伪**：方法论依赖两个核心假设——① CPO 成数据中心主流路线 ② 人形机器人十亿台爆发——任一假设出错，多条产业链逻辑崩盘
+
+### 使用边界
+
+- 不适用于消费品、金融、互联网平台等短链行业
+- 不替代财务估值建模、会计尽调和组合风险管理
+- 不构成交易信号，所有结论必须经过独立验证
+- 如果数据质量差，直接降低置信度，不强推结论
